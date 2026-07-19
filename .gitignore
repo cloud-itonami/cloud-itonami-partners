@@ -1,0 +1,32 @@
+/.cpcache/
+/target/
+/.clj-kondo/.cache/
+/.shadow-cljs/
+/node_modules/
+/.wrangler/
+
+# functions/api/intake.js IS committed (shadow-cljs build artifact,
+# same "commit the compiled Pages Function" convention gftdcojp/cloud-
+# itonami's functions/edge/*.js uses -- Cloudflare Pages does not run a
+# build step for Functions, it deploys whatever's on disk at deploy time).
+# Rebuild it with `npm run build:intake` after editing
+# src/partners/edge/intake.cljs.
+
+# actor's OWN CACAO identity (Ed25519 seed) -- kotoba-server convention
+# .cloud-itonami-partners/identity.edn, NEVER commit a private key
+/.cloud-itonami-partners/
+
+# ONE minted CACAO identity per approved partner (partners.cacao/mint-for-
+# partner!), same convention, one .partner-<application-id>/ dir each --
+# NEVER commit any of these either
+.partner-*/
+
+# generic identity-file catch-all (defense in depth, matches sibling repos'
+# .gitignore convention, e.g. cloud-itonami-isic-6310/.gitignore)
+identity.edn
+identity.json
+
+# local pending-application export the owner pulls from the intake
+# endpoint's KV for offline review (see README 'Human approval') -- may
+# contain applicant PII (name/email), never commit
+/pending-applications.edn

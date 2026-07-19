@@ -1,0 +1,19 @@
+;; Cloudflare Pages Function for POST /api/intake -- compiles straight into
+;; functions/api/intake.js (Pages picks up any *.js under functions/api/ at
+;; deploy time). Mirrors gftdcojp/cloud-itonami's shadow-cljs.edn :edge-api /
+;; :register-api convention (same ns docstring reasoning: :advanced is
+;; required, not optional -- :simple leaves cljs.core/goog base-runtime
+;; eval() calls in the bundle, which Cloudflare's production deploy
+;; pipeline statically rejects regardless of reachability). This build is
+;; deliberately narrow (`partners.edge.intake` requires ONLY
+;; `partners.catalog`, zero transitive deps) -- the same "no shared-bundle
+;; dependency" carve-out core cloud-itonami's own :register-api/:nudge-api
+;; comments document as the reliable pattern when a bigger shared bundle
+;; is fragile to rebuild.
+{:deps {:aliases [:cljs]}
+ :builds
+ {:intake-api
+  {:target :esm
+   :output-dir "functions/api"
+   :modules {:intake {:exports {onRequestPost partners.edge.intake/on-request-post}}}
+   :compiler-options {:output-feature-set :es2020 :infer-externs :auto}}}}

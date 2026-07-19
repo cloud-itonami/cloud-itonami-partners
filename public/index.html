@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cloud-itonami partners -- become a local operator</title>
+<meta name="description" content="Apply to become the local human operator of an itonami business vertical in your territory. Non-binding expression of interest, no fee collected.">
+<style>
+:root{color-scheme:light dark;--fg:#1a1a1a;--bg:#ffffff;--muted:#5a5a5a;--accent:#0b5fff;--border:#d8d8d8;--card:#f7f7f9;}
+@media (prefers-color-scheme:dark){:root{--fg:#f0f0f0;--bg:#111214;--muted:#a3a3a3;--accent:#6ea8ff;--border:#33363b;--card:#1a1c1f;}}
+*{box-sizing:border-box;} body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;max-width:44rem;margin:0 auto;padding:1.5rem;color:var(--fg);background:var(--bg);line-height:1.55;}
+h1{font-size:1.6rem;} h2{font-size:1.15rem;margin-top:2rem;}
+label{display:block;margin-top:1rem;font-weight:600;} .hint{font-weight:400;color:var(--muted);font-size:.9rem;}
+input,select,textarea{width:100%;padding:.6rem;margin-top:.35rem;border:1px solid var(--border);border-radius:.4rem;background:var(--bg);color:var(--fg);font-size:1rem;}
+textarea{min-height:6rem;resize:vertical;}
+button{margin-top:1.5rem;padding:.7rem 1.4rem;border:0;border-radius:.4rem;background:var(--accent);color:#fff;font-size:1rem;font-weight:600;cursor:pointer;}
+button:disabled{opacity:.6;cursor:not-allowed;}
+.disclaimer{background:var(--card);border:1px solid var(--border);border-radius:.5rem;padding:1rem;margin:1.25rem 0;font-size:.92rem;}
+.disclaimer strong{display:block;margin-bottom:.35rem;}
+ul.verticals{list-style:none;padding:0;margin:0;}
+.vertical-card{border:1px solid var(--border);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:.6rem;background:var(--card);}
+.vertical-card .badge{display:inline-block;font-size:.75rem;color:var(--muted);border:1px solid var(--border);border-radius:1rem;padding:.05rem .5rem;margin-left:.4rem;}
+.vertical-card p{margin:.35rem 0 0;color:var(--muted);font-size:.9rem;}
+.vertical-card .repo code{font-size:.8rem;}
+#result{margin-top:1rem;padding:.75rem 1rem;border-radius:.4rem;display:none;}
+#result.ok{display:block;background:#dff6e0;color:#123d17;}
+#result.err{display:block;background:#fbdede;color:#5c1212;}
+@media (prefers-color-scheme:dark){#result.ok{background:#123d17;color:#dff6e0;}#result.err{background:#5c1212;color:#fbdede;}}
+footer{margin-top:3rem;color:var(--muted);font-size:.85rem;}
+</style>
+</head>
+<body>
+<h1>Become a local operator of an itonami business</h1>
+<p>cloud-itonami runs a fleet of AI-operated business verticals ("itonami"), one per industry. This program recruits real individual humans, worldwide, to become the local operator/partner of a specific itonami vertical in a specific country -- the human side of the business, in your territory.</p>
+<div class="disclaimer">
+<strong>Before you apply, please read:</strong>
+Submitting this form is a <strong>NON-BINDING expression of interest</strong> only. <strong>No franchise fee or any payment is collected at this stage</strong>, and none will be requested by this form. <strong>No binding agreement exists</strong> until a separately reviewed, formal contract is signed following legal review. A human reviews every application before any territory is granted -- there is no automatic approval.
+</div>
+<h2>Available itonami verticals (v1 subset)</h2>
+<p class="hint">This is a starting subset, not the full cloud-itonami fleet -- see this program's <a href="https://github.com/cloud-itonami/cloud-itonami-partners">source repository</a> for the full, honest catalog and how it's extended.</p>
+<ul class="verticals">
+<li class="vertical-card" data-ref="cloud-itonami-isco-1212"><strong>Independent/fractional HR manager (Human Resource Managers)</strong> <span class="badge">ISCO-08 1212</span><p>Outsourced 'HR-as-a-service' practice for small and mid-size employers that cannot support a full in-house HR department -- org-chart, employee-record and personnel-action management.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isco-1212</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-5820"><strong>Commercial CRM / subscription-commerce SaaS (software publishing)</strong> <span class="badge">ISIC Rev.4 5820</span><p>A commercial CRM / subscription-commerce SaaS platform business -- the Salesforce/HubSpot class of business.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-5820</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-6310"><strong>HR / talent-management SaaS (computing infrastructure, data processing, hosting and related activities)</strong> <span class="badge">ISIC Rev.5 6310</span><p>An HR/talent-management SaaS business any qualified operator can fork, deploy, run, improve and sell.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-6310</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-6399"><strong>Meta job-search (other information service activities n.e.c.)</strong> <span class="badge">ISIC Rev.4/5 6399</span><p>Job-posting aggregation, verification, publication into a public search index, and freshness-driven delisting.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-6399</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-6492"><strong>Consumer/commercial credit granting (other credit granting)</strong> <span class="badge">ISIC Rev.5 6492</span><p>Loan-application intake, creditworthiness screening, underwriting approval and loan disbursement, for a qualified, licensed lender.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-6492</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-6499"><strong>Venture capital fund (other financial service activities n.e.c., own-account investing)</strong> <span class="badge">ISIC Rev.4/5 6499</span><p>Deal pipeline/sourcing, LP subscription intake, deal due diligence, versioned term-sheet negotiation, capital calls, Investment Committee capital deployment, portfolio-company monitoring, and exit distribution back to LPs.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-6499</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-6511"><strong>Life insurance underwriting</strong> <span class="badge">ISIC Rev.5 6511</span><p>A life-insurance underwriting/policy-binding execution business, for a qualified, licensed operator.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-6511</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-6910"><strong>Company incorporation / registration-agent services (legal activities)</strong> <span class="badge">ISIC Rev.5 6910</span><p>A global company-formation business, for a qualified, licensed operator.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-6910</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-7810"><strong>Employment agency</strong> <span class="badge">ISIC Rev.5 7810</span><p>Candidate intake, per-jurisdiction anti-discrimination/work-authorization regulatory assessment, candidate matching and candidate placement/follow-up.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-7810</code></p></li>
+<li class="vertical-card" data-ref="cloud-itonami-isic-8291"><strong>Corporate/compliance intelligence SaaS (collection agencies and credit bureaus)</strong> <span class="badge">ISIC Rev.4 8291</span><p>A corporate/compliance intelligence SaaS -- the D&amp;B / Moody's Orbis(BvD) / Refinitiv World-Check class of business.</p><p class="repo">Source: <code>cloud-itonami/cloud-itonami-isic-8291</code></p></li>
+</ul>
+<h2>Apply</h2>
+<form id="apply-form">
+  <label>Full name
+    <input type="text" name="applicantName" required autocomplete="name">
+  </label>
+  <label>Email address
+    <input type="email" name="applicantContact" required autocomplete="email">
+  </label>
+  <label>Itonami vertical
+    <select name="itonamiVerticalRef" required>
+      <option value="" disabled selected>Select a vertical...</option>
+        <option value="cloud-itonami-isco-1212">Independent/fractional HR manager (Human Resource Managers) -- ISCO-08 1212</option>
+        <!-- Outsourced 'HR-as-a-service' practice for small and mid-size employers that cannot support a full in-house HR department -- org-chart, employee-record and personnel-action management. -->
+        <option value="cloud-itonami-isic-5820">Commercial CRM / subscription-commerce SaaS (software publishing) -- ISIC Rev.4 5820</option>
+        <!-- A commercial CRM / subscription-commerce SaaS platform business -- the Salesforce/HubSpot class of business. -->
+        <option value="cloud-itonami-isic-6310">HR / talent-management SaaS (computing infrastructure, data processing, hosting and related activities) -- ISIC Rev.5 6310</option>
+        <!-- An HR/talent-management SaaS business any qualified operator can fork, deploy, run, improve and sell. -->
+        <option value="cloud-itonami-isic-6399">Meta job-search (other information service activities n.e.c.) -- ISIC Rev.4/5 6399</option>
+        <!-- Job-posting aggregation, verification, publication into a public search index, and freshness-driven delisting. -->
+        <option value="cloud-itonami-isic-6492">Consumer/commercial credit granting (other credit granting) -- ISIC Rev.5 6492</option>
+        <!-- Loan-application intake, creditworthiness screening, underwriting approval and loan disbursement, for a qualified, licensed lender. -->
+        <option value="cloud-itonami-isic-6499">Venture capital fund (other financial service activities n.e.c., own-account investing) -- ISIC Rev.4/5 6499</option>
+        <!-- Deal pipeline/sourcing, LP subscription intake, deal due diligence, versioned term-sheet negotiation, capital calls, Investment Committee capital deployment, portfolio-company monitoring, and exit distribution back to LPs. -->
+        <option value="cloud-itonami-isic-6511">Life insurance underwriting -- ISIC Rev.5 6511</option>
+        <!-- A life-insurance underwriting/policy-binding execution business, for a qualified, licensed operator. -->
+        <option value="cloud-itonami-isic-6910">Company incorporation / registration-agent services (legal activities) -- ISIC Rev.5 6910</option>
+        <!-- A global company-formation business, for a qualified, licensed operator. -->
+        <option value="cloud-itonami-isic-7810">Employment agency -- ISIC Rev.5 7810</option>
+        <!-- Candidate intake, per-jurisdiction anti-discrimination/work-authorization regulatory assessment, candidate matching and candidate placement/follow-up. -->
+        <option value="cloud-itonami-isic-8291">Corporate/compliance intelligence SaaS (collection agencies and credit bureaus) -- ISIC Rev.4 8291</option>
+        <!-- A corporate/compliance intelligence SaaS -- the D&amp;B / Moody's Orbis(BvD) / Refinitiv World-Check class of business. -->
+    </select>
+  </label>
+  <label>Territory (country)
+    <span class="hint">ISO 3166-1 code, e.g. JPN, USA, DEU, or a 2-letter code</span>
+    <input type="text" name="territoryCountry" required maxlength="3" pattern="[A-Za-z]{2,3}" placeholder="JPN">
+  </label>
+  <label>Region (optional)
+    <input type="text" name="territoryRegion" placeholder="e.g. Kanto, California">
+  </label>
+  <label>Your pitch / relevant experience
+    <textarea name="pitch" required placeholder="Why you, why this vertical, why this territory."></textarea>
+  </label>
+  <label>Capital tier (self-declared)
+    <select name="capitalTier" required>
+      <option value="" disabled selected>Select...</option>
+      <option value="tier-1">Tier 1 -- bootstrap / solo</option>
+      <option value="tier-2">Tier 2 -- small team, some capital</option>
+      <option value="tier-3">Tier 3 -- funded / institutional backing</option>
+    </select>
+  </label>
+  <label>Preferred working language
+    <input type="text" name="language" required placeholder="e.g. en, ja, pt">
+  </label>
+  <button type="submit">Submit expression of interest</button>
+</form>
+<div id="result" role="status"></div>
+<footer>
+This form and its intake endpoint are open source:
+<a href="https://github.com/cloud-itonami/cloud-itonami-partners">github.com/cloud-itonami/cloud-itonami-partners</a>.
+</footer>
+<script>
+document.getElementById('apply-form').addEventListener('submit', async function (ev) {
+  ev.preventDefault();
+  var form = ev.target;
+  var btn = form.querySelector('button');
+  var result = document.getElementById('result');
+  var fd = new FormData(form);
+  var body = {
+    applicantName: fd.get('applicantName'),
+    applicantContact: fd.get('applicantContact'),
+    itonamiVerticalRef: fd.get('itonamiVerticalRef'),
+    territory: { country: (fd.get('territoryCountry') || '').toUpperCase(), region: fd.get('territoryRegion') || null },
+    pitch: fd.get('pitch'),
+    capitalTier: fd.get('capitalTier'),
+    language: fd.get('language')
+  };
+  btn.disabled = true;
+  result.className = ''; result.style.display = 'none';
+  try {
+    var res = await fetch('/api/intake', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+    var data = await res.json();
+    if (res.ok && data.ok) {
+      result.className = 'ok';
+      result.textContent = 'Received (id ' + data.id + '). ' + data.note;
+      form.reset();
+    } else {
+      result.className = 'err';
+      result.textContent = (data.errors || ['Submission failed.']).join(' ');
+    }
+  } catch (e) {
+    result.className = 'err';
+    result.textContent = 'Network error -- please try again.';
+  } finally {
+    btn.disabled = false;
+    result.style.display = 'block';
+  }
+});
+</script>
+</body>
+</html>
