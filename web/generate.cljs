@@ -22,52 +22,69 @@
 ;; (CI / worktree など monorepo 以外のレイアウト用)。
 (ns generate
   (:require ["fs" :as fs]
+            [css.core :as css]
             [jp-go-dds.core :as dds]
             [jp-go-dds.page :as page]
             [partners.catalog :as catalog]))
 
+(def dds-root
+  (or (some-> js/process.env.JP_GO_DDS_ROOT not-empty)
+      "../../kotoba-lang/jp-go-digital-design-system"))
 (def dds-css-path
   (or (some-> js/process.env.JP_GO_DDS_CSS not-empty)
-      "../../kotoba-lang/jp-go-digital-design-system/resources/jp_go_dds/dds.css"))
+      (str dds-root "/resources/jp_go_dds/dds.css")))
 (def dds-css (fs/readFileSync dds-css-path "utf8"))
 
 ;; ページ固有の微調整のみ。色は DADS token 参照で raw hex は書かない。
 ;; select は上流 DADS の vendored subset に含まれない(dds.css に .dads-select が
 ;; 無い)ので、.dads-input-text__input と同じ寸法・境界・focus 挙動になるよう
 ;; ここで最小限に合わせる。上流 class 名は騙らず app 固有の名前を使う。
-(def app-css
-  (str
-   ".pt-lead{color:var(--color-neutral-solid-gray-700);line-height:1.7}"
-   ".pt-banner{margin-block:1.5rem}"
-   ".pt-verticals{list-style:none;padding:0;margin:0;display:flex;"
-   "flex-direction:column;gap:.75rem}"
-   ".pt-vertical .pt-vertical-title{font-weight:700;margin:0}"
-   ".pt-vertical p{margin:.35rem 0 0;color:var(--color-neutral-solid-gray-700);"
-   "font-size:.9375rem;line-height:1.7}"
-   ".pt-vertical .pt-repo{font-size:.875rem}"
-   ".pt-form{display:flex;flex-direction:column;gap:1.25rem;max-width:36rem}"
-   ".pt-select{box-sizing:border-box;width:100%;max-width:100%;height:3rem;"
-   "border:1px solid var(--color-neutral-solid-gray-600);"
-   "background-color:var(--color-neutral-white);"
-   "padding:calc(12 / 16 * 1rem) calc(16 / 16 * 1rem);"
-   "border-radius:calc(8 / 16 * 1rem);color:var(--color-neutral-solid-gray-900);"
-   "font:inherit;line-height:1}"
-   "@media (hover: hover){.pt-select:hover{border-color:var(--color-neutral-black)}}"
-   ".pt-select:focus-visible{outline:calc(4 / 16 * 1rem) solid var(--color-neutral-black);"
-   "outline-offset:calc(2 / 16 * 1rem);"
-   "box-shadow:0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300)}"
-   ".dads-input-text__input,.dads-textarea__textarea{width:100%}"
-   ".dads-textarea__textarea{min-height:7rem;resize:vertical}"
-   ".pt-submit{margin-top:.5rem}"
-   "#result{display:none;margin-top:1.5rem}"
-   "#result[data-shown]{display:grid}"
-   ".pt-footer{border-top:1px solid var(--color-neutral-solid-gray-200);"
-   "margin-top:3rem;padding-block:1.5rem 3rem;"
-   "color:var(--color-neutral-solid-gray-600);font-size:.875rem;line-height:1.8}"
-   ".pt-footer p{margin:0}"
-   "code{font-family:var(--font-family-mono);background:var(--color-neutral-solid-gray-50);"
-   "border:1px solid var(--color-neutral-solid-gray-200);border-radius:4px;"
-   "padding:1px 5px;font-size:.9em}"))
+(def app-rules
+  [[".pt-lead" {:color "var(--color-neutral-solid-gray-700)" :line-height 1.7}]
+   [".pt-banner" {:margin-block "1.5rem"}]
+   [".pt-verticals" {:list-style "none" :padding 0 :margin 0 :display "flex"
+                     :flex-direction "column" :gap ".75rem"}]
+   [".pt-vertical .pt-vertical-title" {:font-weight 700 :margin 0}]
+   [".pt-vertical p" {:margin ".35rem 0 0"
+                      :color "var(--color-neutral-solid-gray-700)"
+                      :font-size ".9375rem" :line-height 1.7}]
+   [".pt-vertical .pt-repo" {:font-size ".875rem"}]
+   [".pt-form" {:display "flex" :flex-direction "column" :gap "1.25rem"
+                :max-width "36rem"}]
+   ;; select は上流 DADS の vendored subset に無い(dds.css に .dads-select が
+   ;; 無い)ので、.dads-input-text__input と寸法・境界・focus を揃える。
+   ;; 上流 class 名は騙らず app 固有の名前を使う。
+   [".pt-select" {:box-sizing "border-box" :width "100%" :max-width "100%"
+                  :height "3rem"
+                  :border "1px solid var(--color-neutral-solid-gray-600)"
+                  :background-color "var(--color-neutral-white)"
+                  :padding "calc(12 / 16 * 1rem) calc(16 / 16 * 1rem)"
+                  :border-radius "calc(8 / 16 * 1rem)"
+                  :color "var(--color-neutral-solid-gray-900)"
+                  :font "inherit" :line-height 1}]
+   [".pt-select:focus-visible" {:outline "calc(4 / 16 * 1rem) solid var(--color-neutral-black)"
+                                :outline-offset "calc(2 / 16 * 1rem)"
+                                :box-shadow "0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300)"}]
+   [".dads-input-text__input,.dads-textarea__textarea" {:width "100%"}]
+   [".dads-textarea__textarea" {:min-height "7rem" :resize "vertical"}]
+   [".pt-submit" {:margin-top ".5rem"}]
+   ["#result" {:display "none" :margin-top "1.5rem"}]
+   ["#result[data-shown]" {:display "block"}]
+   [".pt-footer" {:border-top "1px solid var(--color-neutral-solid-gray-200)"
+                  :margin-top "3rem" :padding-block "1.5rem 3rem"
+                  :color "var(--color-neutral-solid-gray-600)"
+                  :font-size ".875rem" :line-height 1.8}]
+   [".pt-footer p" {:margin 0}]
+   ["code" {:font-family "var(--font-family-mono)"
+            :background "var(--color-neutral-solid-gray-50)"
+            :border "1px solid var(--color-neutral-solid-gray-200)"
+            :border-radius 4 :padding "1px 5px" :font-size ".9em"}]])
+
+(def app-media
+  {"(hover: hover)"
+   [[".pt-select:hover" {:border-color "var(--color-neutral-black)"}]]})
+
+(def app-css (css/css {:rules app-rules :media app-media}))
 
 ;; --- catalog ------------------------------------------------------------
 
@@ -184,68 +201,12 @@
 
 ;; 送信スクリプト。成功/失敗を DADS notification-banner の markup で描画する
 ;; (色・アイコンは dds.css の data-type="success"/"error" が持つ)。
-(def submit-script
-  (str
-   "var ICONS = {\n"
-   "  success: '<circle cx=\"12\" cy=\"12\" r=\"10\" fill=\"currentcolor\"/>"
-   "<path d=\"m17.6 9.6-7 7-4.3-4.3L7.7 11l2.9 2.9 5.7-5.6 1.3 1.4Z\" fill=\"Canvas\"/>',\n"
-   "  error: '<path d=\"M8.25 21 3 15.75v-7.5L8.25 3h7.5L21 8.25v7.5L15.75 21h-7.5Z\" fill=\"currentcolor\"/>"
-   "<path d=\"m12 13.4-2.85 2.85-1.4-1.4L10.6 12 7.75 9.15l1.4-1.4L12 10.6l2.85-2.85 1.4 1.4L13.4 12l2.85 2.85-1.4 1.4L12 13.4Z\" fill=\"Canvas\"/>'\n"
-   "};\n"
-   "var LABELS = { success: '\\u6210\\u529f', error: '\\u30a8\\u30e9\\u30fc' };\n"
-   "function showBanner(kind, heading, text) {\n"
-   "  var r = document.getElementById('result');\n"
-   "  r.className = 'dads-notification-banner';\n"
-   "  r.setAttribute('data-style', 'standard');\n"
-   "  r.setAttribute('data-type', kind);\n"
-   "  r.setAttribute('data-shown', '');\n"
-   "  var h = document.createElement('h2');\n"
-   "  h.className = 'dads-notification-banner__heading';\n"
-   "  h.innerHTML = '<svg class=\"dads-notification-banner__icon\" width=\"24\" height=\"24\" "
-   "viewBox=\"0 0 24 24\" role=\"img\" aria-label=\"' + LABELS[kind] + '\">' + ICONS[kind] + '</svg>';\n"
-   "  var ht = document.createElement('span');\n"
-   "  ht.className = 'dads-notification-banner__heading-text';\n"
-   "  ht.textContent = heading;\n"
-   "  h.appendChild(ht);\n"
-   "  var b = document.createElement('div');\n"
-   "  b.className = 'dads-notification-banner__body';\n"
-   "  var p = document.createElement('p');\n"
-   "  p.textContent = text;\n"           ;; textContent: サーバ応答を markup として解釈させない
-   "  b.appendChild(p);\n"
-   "  r.replaceChildren(h, b);\n"
-   "}\n"
-   "document.getElementById('apply-form').addEventListener('submit', async function (ev) {\n"
-   "  ev.preventDefault();\n"
-   "  var form = ev.target;\n"
-   "  var btn = form.querySelector('button[type=\"submit\"]');\n"
-   "  var result = document.getElementById('result');\n"
-   "  var fd = new FormData(form);\n"
-   "  var body = {\n"
-   "    applicantName: fd.get('applicantName'),\n"
-   "    applicantContact: fd.get('applicantContact'),\n"
-   "    itonamiVerticalRef: fd.get('itonamiVerticalRef'),\n"
-   "    territory: { country: (fd.get('territoryCountry') || '').toUpperCase(), region: fd.get('territoryRegion') || null },\n"
-   "    pitch: fd.get('pitch'),\n"
-   "    capitalTier: fd.get('capitalTier'),\n"
-   "    language: fd.get('language')\n"
-   "  };\n"
-   "  btn.disabled = true;\n"
-   "  result.removeAttribute('data-shown');\n"
-   "  try {\n"
-   "    var res = await fetch('/api/intake', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });\n"
-   "    var data = await res.json();\n"
-   "    if (res.ok && data.ok) {\n"
-   "      showBanner('success', 'Received', '(id ' + data.id + ') ' + data.note);\n"
-   "      form.reset();\n"
-   "    } else {\n"
-   "      showBanner('error', 'Submission failed', (data.errors || ['Submission failed.']).join(' '));\n"
-   "    }\n"
-   "  } catch (e) {\n"
-   "    showBanner('error', 'Network error', 'Please try again.');\n"
-   "  } finally {\n"
-   "    btn.disabled = false;\n"
-   "  }\n"
-   "});\n"))
+(def scripts
+  [[:script {:src "scittle.js"}]
+   [:script {:type "application/x-scittle" :src "css_core.cljs"}]
+   [:script {:type "application/x-scittle" :src "html_core.cljs"}]
+   [:script {:type "application/x-scittle" :src "jp_go_dds_core.cljs"}]
+   [:script {:type "application/x-scittle" :src "apply.cljs"}]])
 
 (def html
   (page/->page
@@ -257,9 +218,30 @@
     :css dds-css
     :app-css app-css}
    body
-   ;; script は html.core の raw-text tag。子は素の文字列で渡す。
-   [:script submit-script]))
+   ;; scittle と依存 namespace は self-host(外部リクエストゼロを維持する)。
+   ;; 読み込み順は依存順: css.core -> html.core -> jp-go-dds.core -> apply。
+   scripts))
 
 (fs/mkdirSync "public" #js {:recursive true})
+
+;; ブラウザ側で走らせる .cljs は「コピーするだけ」— ビルド無し。
+;; ライブラリ 3 本はモノレポ/兄弟 clone から取り、apply.cljs と一緒に public/ へ置く。
+;; scittle は web/vendor/ に self-host 済み(web/vendor/README.md 参照)。
+(def css-root
+  (or (some-> js/process.env.KOTOBA_CSS_ROOT not-empty) (str dds-root "/../css")))
+(def html-root
+  (or (some-> js/process.env.KOTOBA_HTML_ROOT not-empty) (str dds-root "/../html")))
+
+(def browser-assets
+  [[(str css-root  "/src/css/core.cljc")              "public/css_core.cljs"]
+   [(str html-root "/src/html/core.cljc")             "public/html_core.cljs"]
+   [(str dds-root  "/src/jp_go_dds/core.cljc")        "public/jp_go_dds_core.cljs"]
+   ["web/vendor/scittle.js"                           "public/scittle.js"]
+   ["web/apply.cljs"                                  "public/apply.cljs"]])
+
+(doseq [[src dst] browser-assets]
+  (fs/copyFileSync src dst))
+
 (fs/writeFileSync "public/index.html" html)
-(println (str "wrote public/index.html (" (count (catalog/options)) " verticals)"))
+(println (str "wrote public/index.html (" (count (catalog/options)) " verticals, "
+              (count browser-assets) " browser assets)"))
