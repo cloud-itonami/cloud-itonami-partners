@@ -51,20 +51,6 @@
    [".pt-vertical .pt-repo" {:font-size ".875rem"}]
    [".pt-form" {:display "flex" :flex-direction "column" :gap "1.25rem"
                 :max-width "36rem"}]
-   ;; select は上流 DADS の vendored subset に無い(dds.css に .dads-select が
-   ;; 無い)ので、.dads-input-text__input と寸法・境界・focus を揃える。
-   ;; 上流 class 名は騙らず app 固有の名前を使う。
-   [".pt-select" {:box-sizing "border-box" :width "100%" :max-width "100%"
-                  :height "3rem"
-                  :border "1px solid var(--color-neutral-solid-gray-600)"
-                  :background-color "var(--color-neutral-white)"
-                  :padding "calc(12 / 16 * 1rem) calc(16 / 16 * 1rem)"
-                  :border-radius "calc(8 / 16 * 1rem)"
-                  :color "var(--color-neutral-solid-gray-900)"
-                  :font "inherit" :line-height 1}]
-   [".pt-select:focus-visible" {:outline "calc(4 / 16 * 1rem) solid var(--color-neutral-black)"
-                                :outline-offset "calc(2 / 16 * 1rem)"
-                                :box-shadow "0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300)"}]
    [".dads-input-text__input,.dads-textarea__textarea" {:width "100%"}]
    [".dads-textarea__textarea" {:min-height "7rem" :resize "vertical"}]
    [".pt-submit" {:margin-top ".5rem"}]
@@ -80,11 +66,7 @@
             :border "1px solid var(--color-neutral-solid-gray-200)"
             :border-radius 4 :padding "1px 5px" :font-size ".9em"}]])
 
-(def app-media
-  {"(hover: hover)"
-   [[".pt-select:hover" {:border-color "var(--color-neutral-black)"}]]})
-
-(def app-css (css/css {:rules app-rules :media app-media}))
+(def app-css (css/css {:rules app-rules}))
 
 ;; --- catalog ------------------------------------------------------------
 
@@ -97,30 +79,32 @@
     [:p {:class "pt-repo"} "Source: " [:code repo]])])
 
 (defn- vertical-option [[ref {:keys [code standard title]}]]
-  [:option {:value ref} (str title " — " standard " " code)])
+  [ref (str title " — " standard " " code)])
 
 ;; --- form ---------------------------------------------------------------
 
 (defn- select-field
+  "公式 DADS の select(dds/select)を使う。以前はここで自前の .pt-select を
+  当てていたが、それは「vendor していなかっただけ」で上流には select が
+  存在する —— jp-go-dds 側に取り込んだので自前 CSS は撤去した。"
   [{:keys [id name label support required? placeholder]} options]
   (dds/form-field
    (cond-> {:label label :for id}
      support (assoc :support support :support-id (str id "-support"))
-     required? (assoc :status "Required"))
-   (into [:select (cond-> {:id id :name name :class "pt-select"}
-                    required? (assoc :required true)
-                    support (assoc :aria-describedby (str id "-support")))
-          [:option {:value "" :disabled true :selected true} placeholder]]
-         options)))
+     required? (assoc :requirement "Required" :required? true))
+   (dds/select (cond-> {:id id :name name}
+                 required? (assoc :required true)
+                 support (assoc :aria-describedby (str id "-support")))
+               (into [["" placeholder]] options))))
 
 (def apply-form
   [:form {:id "apply-form" :class "pt-form"}
    (dds/form-field
-    {:label "Full name" :for "f-name" :status "Required"}
+    {:label "Full name" :for "f-name" :requirement "Required" :required? true}
     (dds/input-text {:id "f-name" :name "applicantName" :type "text"
                      :required true :autocomplete "name"}))
    (dds/form-field
-    {:label "Email address" :for "f-email" :status "Required"}
+    {:label "Email address" :for "f-email" :requirement "Required" :required? true}
     (dds/input-text {:id "f-email" :name "applicantContact" :type "email"
                      :required true :autocomplete "email"}))
    (select-field {:id "f-vertical" :name "itonamiVerticalRef"
@@ -128,7 +112,8 @@
                   :placeholder "Select a vertical…"}
                  (map vertical-option (catalog/options)))
    (dds/form-field
-    {:label "Territory (country)" :for "f-country" :status "Required"
+    {:label "Territory (country)" :for "f-country"
+     :requirement "Required" :required? true
      :support "ISO 3166-1 code, e.g. JPN, USA, DEU, or a 2-letter code"
      :support-id "f-country-support"}
     (dds/input-text {:id "f-country" :name "territoryCountry" :type "text"
@@ -139,17 +124,17 @@
     (dds/input-text {:id "f-region" :name "territoryRegion" :type "text"
                      :placeholder "e.g. Kanto, California"}))
    (dds/form-field
-    {:label "Your pitch / relevant experience" :for "f-pitch" :status "Required"}
+    {:label "Your pitch / relevant experience" :for "f-pitch" :requirement "Required" :required? true}
     (dds/textarea {:id "f-pitch" :name "pitch" :required true
                    :placeholder "Why you, why this vertical, why this territory."}))
    (select-field {:id "f-capital" :name "capitalTier"
                   :label "Capital tier (self-declared)" :required? true
                   :placeholder "Select…"}
-                 [[:option {:value "tier-1"} "Tier 1 — bootstrap / solo"]
-                  [:option {:value "tier-2"} "Tier 2 — small team, some capital"]
-                  [:option {:value "tier-3"} "Tier 3 — funded / institutional backing"]])
+                 [["tier-1" "Tier 1 — bootstrap / solo"]
+                  ["tier-2" "Tier 2 — small team, some capital"]
+                  ["tier-3" "Tier 3 — funded / institutional backing"]])
    (dds/form-field
-    {:label "Preferred working language" :for "f-language" :status "Required"}
+    {:label "Preferred working language" :for "f-language" :requirement "Required" :required? true}
     (dds/input-text {:id "f-language" :name "language" :type "text"
                      :required true :placeholder "e.g. en, ja, pt"}))
    [:div {:class "pt-submit"}
