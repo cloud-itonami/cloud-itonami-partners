@@ -82,7 +82,30 @@ commitment or collect money.
 | `src/partners/cacao.clj` | JVM-only CACAO/did:key self-mint identity -- the actor's OWN identity (`.cloud-itonami-partners/identity.edn`) AND one independent identity PER approved partner (`.partner-<application-id>/identity.edn`) |
 | `src/partners/sim.cljc` | Demo driver (`clojure -M:dev:run`) -- also the literal template for the owner's real review procedure, see "Human approval" |
 | `src/partners/edge/intake.cljs` | Cloudflare Pages Function source (`POST /api/intake`) -- compiled to `functions/api/intake.js` via shadow-cljs |
-| `web/generate.cljs` | nbb static-site generator -- reads `partners.catalog` and writes `public/index.html` (the public form) |
+| `web/generate.cljs` | nbb static-site generator -- reads `partners.catalog` and writes `public/index.html` (the public form), built from the デジタル庁デザインシステム (DADS) via `kotoba-lang/jp-go-digital-design-system` -- see "UI" below |
+
+### UI — デジタル庁デザインシステム (DADS)
+
+The public form is built from
+[`kotoba-lang/jp-go-digital-design-system`](https://github.com/kotoba-lang/jp-go-digital-design-system)
+(the デジタル庁デザインシステム as cljc hiccup components + vendored upstream
+CSS), not this monorepo's default `kotoba-ui` stack. Rationale is recorded
+in superproject **ADR-2607261600**: cloud-itonami implements public-administration
+rules as software, and DADS is a design system whose primary subject *is* the
+government application form — which is exactly what this page is.
+
+This supersedes the earlier note here that a design system was "a large detour
+for a single-page public form". That reasoning was about pulling in
+`kotoba-ui`/`liquid-glass-ui`/`shitsuke`; DADS costs one require plus a
+vendored stylesheet, so the detour argument no longer holds. The
+hand-written HTML strings and inline `<style>` this file used to emit are gone.
+
+DADS is **light-mode only** (upstream デジタル庁 ships no dark palette), so the
+previous `prefers-color-scheme` dark support was intentionally dropped.
+
+`web/generate.cljs` reads the vendored `dds.css` by relative path; override it
+with the `JP_GO_DDS_CSS` environment variable when running from a different
+directory layout (CI, git worktree).
 
 ### Why no `phase.cljc`
 
@@ -132,7 +155,7 @@ statement, not a bare scaffold:
 This is a **subset**, not the full fleet (ADR-2607194000 Non-goals
 explicitly scope v1 this way). Extending it is additive: verify the next
 repo's README, add one map entry to `partners.catalog/verticals`, run
-`npx nbb --classpath src web/generate.cljs` to regenerate the form.
+`npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljs` to regenerate the form.
 
 ## Run tests
 
@@ -210,7 +233,8 @@ scopes this actor to its own deployment).
 
 ```bash
 npm install
-npx nbb --classpath src web/generate.cljs   # regenerate public/index.html from partners.catalog
+npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljs \
+  # regenerate public/index.html from partners.catalog
 npx shadow-cljs release intake-api          # regenerate functions/api/intake.js from src/partners/edge/intake.cljs
 npx wrangler pages deploy public --project-name=cloud-itonami-partners --branch=main
 ```
