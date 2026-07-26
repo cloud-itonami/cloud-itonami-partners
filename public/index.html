@@ -2427,8 +2427,223 @@ legend.dads-form-control-label__label {
   --button-outline-hover-bg-color: var(--color-neutral-solid-gray-200);
   --button-outline-active-bg-color: var(--color-neutral-solid-gray-300);
 }
+/* --- component: select --- */
+.dads-select {
+  display: block;
+  color: var(--color-neutral-solid-gray-800);
+  font-weight: normal;
+  font-size: calc(16 / 16 * 1rem);
+  line-height: 1.7;
+  font-family: var(--font-family-sans);
+  letter-spacing: 0.02em;
+}
 
-.dds-ext-container { max-width: 64rem; margin-inline: auto; padding-inline: 1rem; }
+.dads-select__control {
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+
+.dads-select__select {
+  vertical-align: middle;
+  box-sizing: border-box;
+  border-radius: calc(8 / 16 * 1rem);
+  border: 1px solid var(--color-neutral-solid-gray-600);
+  background-color: var(--color-neutral-white);
+  padding-right: calc(40 / 16 * 1rem);
+  padding-left: calc(16 / 16 * 1rem);
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  letter-spacing: inherit;
+  appearance: none;
+}
+
+.dads-select__select[data-size="sm"] {
+  height: calc(40 / 16 * 1rem);
+}
+
+.dads-select__select[data-size="md"] {
+  height: calc(48 / 16 * 1rem);
+}
+
+.dads-select__select[data-size="lg"] {
+  height: calc(56 / 16 * 1rem);
+}
+
+.dads-select__select:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+@media (hover: hover) {
+  .dads-select__select:hover {
+    border-color: var(--color-neutral-black);
+  }
+}
+
+.dads-select__select:is(:user-invalid, [aria-invalid="true"]) {
+  border-color: var(--color-semantic-error-1);
+}
+
+@media (hover: hover) {
+  .dads-select__select:is(:user-invalid, [aria-invalid="true"]):hover {
+    border-color: var(--color-primitive-red-1000);
+  }
+}
+
+.dads-select__select:is(:disabled, [aria-disabled="true"]),
+.dads-select__select:is(:disabled, [aria-disabled="true"]):hover {
+  border: 1px solid var(--color-neutral-solid-gray-300);
+  background-color: var(--color-neutral-solid-gray-50);
+  color: var(--color-neutral-solid-gray-420);
+}
+
+@media (forced-colors: active) {
+  .dads-select__select {
+    color: ButtonText;
+    border-color: ButtonText;
+  }
+
+  .dads-select__select[aria-disabled="true"],
+  .dads-select__select[aria-disabled="true"]:hover {
+    border-color: GrayText;
+    color: GrayText;
+  }
+}
+
+.dads-select__chevron {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: calc(16 / 16 * 1rem);
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: calc(16 / 16 * 1rem);
+  height: calc(16 / 16 * 1rem);
+}
+
+.dads-select__select:disabled + .dads-select__chevron {
+  color: var(--color-neutral-solid-gray-420);
+}
+
+@media (forced-colors: active) {
+  .dads-select__chevron {
+    color: ButtonText;
+  }
+
+  .dads-select__select:disabled + .dads-select__chevron {
+    color: GrayText;
+  }
+}
+
+.dads-select__error-text {
+  margin: calc(8 / 16 * 1rem) 0 0 0;
+  display: block;
+  color: var(--color-semantic-error-1);
+}
+/* --- component: link --- */
+.dads-link:any-link {
+  color: var(--color-primitive-blue-1000);
+  text-decoration: underline;
+  text-decoration-thickness: calc(1 / 16 * 1rem);
+  text-underline-offset: calc(3 / 16 * 1rem);
+}
+
+.dads-link:visited {
+  color: var(--color-primitive-magenta-900);
+}
+
+@media (hover: hover) {
+  .dads-link:hover {
+    color: var(--color-primitive-blue-900);
+    text-decoration-thickness: calc(3 / 16 * 1rem);
+  }
+}
+
+.dads-link:active {
+  color: var(--color-primitive-orange-800);
+  text-decoration-thickness: calc(1 / 16 * 1rem);
+}
+
+.dads-link:focus-visible {
+  outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black);
+  outline-offset: calc(2 / 16 * 1rem);
+  border-radius: calc(4 / 16 * 1rem);
+  background-color: var(--color-primitive-yellow-300);
+  box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300);
+}
+
+.dads-link__icon {
+  display: inline-block;
+  width: calc(16 / 16 * 1rem);
+  height: calc(16 / 16 * 1rem);
+  vertical-align: -0.15em;
+}
+/* --- component: list --- */
+.dads-list {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: calc(32 / 16 * 1rem);
+  list-style-type: revert;
+}
+
+.dads-list > li {
+  --_spacing: 0;
+  padding-top: var(--_spacing);
+  padding-bottom: var(--_spacing);
+}
+
+.dads-list[data-spacing="4"] > li {
+  --_spacing: calc(4 / 16 * 1rem);
+}
+
+.dads-list[data-spacing="8"] > li {
+  --_spacing: calc(8 / 16 * 1rem);
+}
+
+.dads-list[data-spacing="12"] > li {
+  --_spacing: calc(12 / 16 * 1rem);
+}
+
+.dads-list[data-marker="number"] {
+  display: grid;
+  grid-template-columns: minmax(calc(32 / 16 * 1rem), auto) 1fr;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.dads-list[data-marker="number"] > li,
+.dads-list[data-marker="number"] > li > a {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: inherit;
+  align-items: baseline;
+}
+
+.dads-list[data-marker="number"] > li > a > span {
+  text-decoration-thickness: inherit;
+}
+
+.dads-list[data-marker="number"] > li > :not(a, span) {
+  grid-column: 2;
+}
+
+@supports (grid-template-columns: subgrid) {
+  .dads-list[data-marker="number"] > li,
+  .dads-list[data-marker="number"] > li > a {
+    grid-template-columns: subgrid;
+  }
+}
+
+.dads-list .dads-list {
+  margin-top: var(--_spacing);
+  margin-bottom: calc(-1 * var(--_spacing));
+}
+
+.dds-ext-container { max-width: 64rem; margin-inline: auto; padding-inline: max(1rem,env(safe-area-inset-left)) max(1rem,env(safe-area-inset-right)); }
 .dds-ext-section { padding-block: 3rem; border-top: 1px solid var(--color-neutral-solid-gray-200); }
 .dds-ext-section:first-of-type { border-top: none; }
 .dds-ext-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(var(--dds-ext-grid-min,16rem),1fr)); gap: 1.5rem; }
@@ -2443,6 +2658,10 @@ legend.dads-form-control-label__label {
 body { margin: 0; background: var(--color-neutral-white); color: var(--color-neutral-solid-gray-800); font-family: var(--font-family-sans); }
 img,svg { max-width: 100%; height: auto; }
 .dads-table { max-width: 100%; min-width: 0; overflow-x: auto; }
+:root { color-scheme: light; }
+body { padding-bottom: env(safe-area-inset-bottom); }
+@media (pointer:coarse) { .dads-button,.dads-accordion__summary { min-height: 44px; } }
+@media (max-width:48rem) { .dds-ext-section { padding-block: 2rem; } .dds-ext-hero { padding-block: 2.5rem 2rem; } .dds-ext-grid { --dds-ext-grid-min: 100%; } }
 .pt-lead { color: var(--color-neutral-solid-gray-700); line-height: 1.7; }
 .pt-banner { margin-block: 1.5rem; }
 .pt-verticals { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .75rem; }
@@ -2450,8 +2669,6 @@ img,svg { max-width: 100%; height: auto; }
 .pt-vertical p { margin: .35rem 0 0; color: var(--color-neutral-solid-gray-700); font-size: .9375rem; line-height: 1.7; }
 .pt-vertical .pt-repo { font-size: .875rem; }
 .pt-form { display: flex; flex-direction: column; gap: 1.25rem; max-width: 36rem; }
-.pt-select { line-height: 1; box-sizing: border-box; color: var(--color-neutral-solid-gray-900); background-color: var(--color-neutral-white); width: 100%; max-width: 100%; font: inherit; padding: calc(12 / 16 * 1rem) calc(16 / 16 * 1rem); border: 1px solid var(--color-neutral-solid-gray-600); border-radius: calc(8 / 16 * 1rem); height: 3rem; }
-.pt-select:focus-visible { outline: calc(4 / 16 * 1rem) solid var(--color-neutral-black); outline-offset: calc(2 / 16 * 1rem); box-shadow: 0 0 0 calc(2 / 16 * 1rem) var(--color-primitive-yellow-300); }
 .dads-input-text__input,.dads-textarea__textarea { width: 100%; }
 .dads-textarea__textarea { min-height: 7rem; resize: vertical; }
 .pt-submit { margin-top: .5rem; }
@@ -2459,8 +2676,7 @@ img,svg { max-width: 100%; height: auto; }
 #result[data-shown] { display: block; }
 .pt-footer { border-top: 1px solid var(--color-neutral-solid-gray-200); margin-top: 3rem; padding-block: 1.5rem 3rem; color: var(--color-neutral-solid-gray-600); font-size: .875rem; line-height: 1.8; }
 .pt-footer p { margin: 0; }
-code { font-family: var(--font-family-mono); background: var(--color-neutral-solid-gray-50); border: 1px solid var(--color-neutral-solid-gray-200); border-radius: 4px; padding: 1px 5px; font-size: .9em; }
-@media (hover: hover) { .pt-select:hover { border-color: var(--color-neutral-black); } }</style></head>
+code { font-family: var(--font-family-mono); background: var(--color-neutral-solid-gray-50); border: 1px solid var(--color-neutral-solid-gray-200); border-radius: 4px; padding: 1px 5px; font-size: .9em; }</style></head>
   <body><div class="dds-ext-container">
     <header style="padding-block:2.5rem 0;">
       <h1 class="dads-heading" data-size="45">Become a local operator of an itonami business</h1>
@@ -2555,29 +2771,34 @@ code { font-family: var(--font-family-mono); background: var(--color-neutral-sol
     <section class="dds-ext-section">
       <h2 class="dads-heading" data-size="32">Apply</h2>
       <form id="apply-form" class="pt-form">
-        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-name">Full name<span class="dads-form-control-label__status">Required</span></label><div>
+        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-name">Full name<span class="dads-form-control-label__requirement" data-required="true">Required</span></label><div>
           <span class="dads-input-text"><input id="f-name" name="applicantName" type="text" required autocomplete="name" class="dads-input-text__input" data-size="md"></span>
         </div></div>
-        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-email">Email address<span class="dads-form-control-label__status">Required</span></label><div>
+        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-email">Email address<span class="dads-form-control-label__requirement" data-required="true">Required</span></label><div>
           <span class="dads-input-text"><input id="f-email" name="applicantContact" type="email" required autocomplete="email" class="dads-input-text__input" data-size="md"></span>
         </div></div>
-        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-vertical">Itonami vertical<span class="dads-form-control-label__status">Required</span></label><div>
-          <select id="f-vertical" name="itonamiVerticalRef" class="pt-select" required>
-            <option value="" disabled selected>Select a vertical…</option>
-            <option value="cloud-itonami-isco-1212">Independent/fractional HR manager (Human Resource Managers) — ISCO-08 1212</option>
-            <option value="cloud-itonami-isic-5820">Commercial CRM / subscription-commerce SaaS (software publishing) — ISIC Rev.4 5820</option>
-            <option value="cloud-itonami-isic-6310">HR / talent-management SaaS (computing infrastructure, data processing, hosting and related activities) — ISIC Rev.5 6310</option>
-            <option value="cloud-itonami-isic-6399">Meta job-search (other information service activities n.e.c.) — ISIC Rev.4/5 6399</option>
-            <option value="cloud-itonami-isic-6492">Consumer/commercial credit granting (other credit granting) — ISIC Rev.5 6492</option>
-            <option value="cloud-itonami-isic-6499">Venture capital fund (other financial service activities n.e.c., own-account investing) — ISIC Rev.4/5 6499</option>
-            <option value="cloud-itonami-isic-6511">Life insurance underwriting — ISIC Rev.5 6511</option>
-            <option value="cloud-itonami-isic-6910">Company incorporation / registration-agent services (legal activities) — ISIC Rev.5 6910</option>
-            <option value="cloud-itonami-isic-7810">Employment agency — ISIC Rev.5 7810</option>
-            <option value="cloud-itonami-isic-8291">Corporate/compliance intelligence SaaS (collection agencies and credit bureaus) — ISIC Rev.4 8291</option>
-          </select>
+        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-vertical">Itonami vertical<span class="dads-form-control-label__requirement" data-required="true">Required</span></label><div>
+          <span class="dads-select"><span class="dads-select__control">
+            <select class="dads-select__select" data-size="md" id="f-vertical" name="itonamiVerticalRef" required>
+              <option value="" disabled selected>Select a vertical…</option>
+              <option value="cloud-itonami-isco-1212">Independent/fractional HR manager (Human Resource Managers) — ISCO-08 1212</option>
+              <option value="cloud-itonami-isic-5820">Commercial CRM / subscription-commerce SaaS (software publishing) — ISIC Rev.4 5820</option>
+              <option value="cloud-itonami-isic-6310">HR / talent-management SaaS (computing infrastructure, data processing, hosting and related activities) — ISIC Rev.5 6310</option>
+              <option value="cloud-itonami-isic-6399">Meta job-search (other information service activities n.e.c.) — ISIC Rev.4/5 6399</option>
+              <option value="cloud-itonami-isic-6492">Consumer/commercial credit granting (other credit granting) — ISIC Rev.5 6492</option>
+              <option value="cloud-itonami-isic-6499">Venture capital fund (other financial service activities n.e.c., own-account investing) — ISIC Rev.4/5 6499</option>
+              <option value="cloud-itonami-isic-6511">Life insurance underwriting — ISIC Rev.5 6511</option>
+              <option value="cloud-itonami-isic-6910">Company incorporation / registration-agent services (legal activities) — ISIC Rev.5 6910</option>
+              <option value="cloud-itonami-isic-7810">Employment agency — ISIC Rev.5 7810</option>
+              <option value="cloud-itonami-isic-8291">Corporate/compliance intelligence SaaS (collection agencies and credit bureaus) — ISIC Rev.4 8291</option>
+            </select>
+            <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"></path>
+            </svg>
+          </span></span>
         </div></div>
         <div class="dads-form-control-label" data-size="md">
-          <label class="dads-form-control-label__label" for="f-country">Territory (country)<span class="dads-form-control-label__status">Required</span></label>
+          <label class="dads-form-control-label__label" for="f-country">Territory (country)<span class="dads-form-control-label__requirement" data-required="true">Required</span></label>
           <p class="dads-form-control-label__support-text" id="f-country-support">ISO 3166-1 code, e.g. JPN, USA, DEU, or a 2-letter code</p>
           <div>
             <span class="dads-input-text"><input data-size="md" placeholder="JPN" name="territoryCountry" type="text" maxlength="3" id="f-country" class="dads-input-text__input" aria-describedby="f-country-support" required pattern="[A-Za-z]{2,3}"></span>
@@ -2586,20 +2807,25 @@ code { font-family: var(--font-family-mono); background: var(--color-neutral-sol
         <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-region">Region (optional)</label><div>
           <span class="dads-input-text"><input id="f-region" name="territoryRegion" type="text" placeholder="e.g. Kanto, California" class="dads-input-text__input" data-size="md"></span>
         </div></div>
-        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-pitch">Your pitch / relevant experience<span class="dads-form-control-label__status">Required</span></label><div>
+        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-pitch">Your pitch / relevant experience<span class="dads-form-control-label__requirement" data-required="true">Required</span></label><div>
           <span class="dads-textarea">
             <textarea id="f-pitch" name="pitch" required placeholder="Why you, why this vertical, why this territory." class="dads-textarea__textarea" rows="4"></textarea>
           </span>
         </div></div>
-        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-capital">Capital tier (self-declared)<span class="dads-form-control-label__status">Required</span></label><div>
-          <select id="f-capital" name="capitalTier" class="pt-select" required>
-            <option value="" disabled selected>Select…</option>
-            <option value="tier-1">Tier 1 — bootstrap / solo</option>
-            <option value="tier-2">Tier 2 — small team, some capital</option>
-            <option value="tier-3">Tier 3 — funded / institutional backing</option>
-          </select>
+        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-capital">Capital tier (self-declared)<span class="dads-form-control-label__requirement" data-required="true">Required</span></label><div>
+          <span class="dads-select"><span class="dads-select__control">
+            <select class="dads-select__select" data-size="md" id="f-capital" name="capitalTier" required>
+              <option value="" disabled selected>Select…</option>
+              <option value="tier-1">Tier 1 — bootstrap / solo</option>
+              <option value="tier-2">Tier 2 — small team, some capital</option>
+              <option value="tier-3">Tier 3 — funded / institutional backing</option>
+            </select>
+            <svg class="dads-select__chevron" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 17L3 8L4 7L12 15L20 7L21 8L12 17Z" fill="currentcolor"></path>
+            </svg>
+          </span></span>
         </div></div>
-        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-language">Preferred working language<span class="dads-form-control-label__status">Required</span></label><div>
+        <div class="dads-form-control-label" data-size="md"><label class="dads-form-control-label__label" for="f-language">Preferred working language<span class="dads-form-control-label__requirement" data-required="true">Required</span></label><div>
           <span class="dads-input-text"><input id="f-language" name="language" type="text" required placeholder="e.g. en, ja, pt" class="dads-input-text__input" data-size="md"></span>
         </div></div>
         <div class="pt-submit">
