@@ -1,0 +1,24 @@
+{:itonami.blueprint/id "cloud-itonami-partners"
+ :itonami.blueprint/name "Local Partner (Franchise Operator) Recruitment and Screening"
+ :itonami.blueprint/domain :partnership/franchise-operator-recruitment
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:local-economic-participation :fair-selection :transparency]
+ :itonami.blueprint/governor :partner-governor
+ :itonami.blueprint/robotics false
+ :itonami.blueprint/required-technologies [:identity :forms :audit-ledger]
+ :itonami.blueprint/optional-technologies []
+ :itonami.blueprint/status :public-oss
+ :itonami.blueprint/maturity :implemented
+ :itonami.blueprint/keying :function
+ :itonami.blueprint/adr "2607194000-cloud-itonami-partners-actor"
+ ;; Deployed as a Cloudflare PAGES project; Functions serve /api/intake.
+ ;; No :health-path — /health returns the SPA index here, and declaring one
+ ;; would make a probe read HTML as a healthy API.
+ :itonami.blueprint/endpoint "https://cloud-itonami-partners.pages.dev"
+ :itonami.blueprint/endpoint-kind :pages-dev
+ ;; ScreeningAdvisor is sealed into one node behind an independent
+ ;; PartnerGovernor, and an explicit human approval is required before any
+ ;; territory is granted — permanently, not as a rollout milestone. The
+ ;; repository has no phase.cljc for that reason.
+ :itonami.blueprint/adjudicating true
+ :itonami.blueprint/custodial false}
