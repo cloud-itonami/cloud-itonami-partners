@@ -9,7 +9,7 @@
   identity (`load-or-create-identity!`, no args, fixed slug
   `cloud-itonami-partners`) is exercised too and ALSO cleaned up afterward."
   (:require [clojure.java.io :as io]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [clojure.test :refer [deftest is testing]]
             [ed25519.core :as ed]
             [ipns.core :as ipns]
