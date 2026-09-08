@@ -1,6 +1,6 @@
 (ns css.core
   "CSS as EDN data."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (def unitless
   #{:animation-iteration-count :border-image-outset :border-image-slice

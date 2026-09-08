@@ -34,7 +34,7 @@
                    exclusivity index (`granted:<vertical>:<country>:
                    <region>` -> application-id, written by the owner's CLI
                    AFTER a real onboard, never by this Function itself)."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [partners.catalog :as catalog]))
 
 (def ^:private required-fields
@@ -64,8 +64,8 @@
       (conj "Territory country must be a 2- or 3-letter ISO 3166-1 code, e.g. \"JPN\" or \"US\"."))))
 
 (defn- territory-grant-kv-key [vertical-ref territory]
-  (str "granted:" vertical-ref ":" (some-> (:country territory) str/upper-case)
-       ":" (or (some-> (:region territory) str/trim str/lower-case not-empty) "-")))
+  (str "granted:" vertical-ref ":" (some-> (:country territory) str/upper)
+       ":" (or (some-> (:region territory) str/trim str/lower not-empty) "-")))
 
 (defn- json-response [status obj]
   (js/Response. (js/JSON.stringify (clj->js obj))
