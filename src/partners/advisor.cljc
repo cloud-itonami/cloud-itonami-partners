@@ -31,7 +31,7 @@
   (:require #?(:clj  [clojure.edn :as edn]
                :cljs [cljs.reader :as edn])
             [clojure.set :as set]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [partners.catalog :as catalog]
             [partners.store :as store]
             [langchain.model :as model]))
@@ -46,8 +46,8 @@
   `partners.governor`)."
   [pitch vertical-title]
   (let [len-score (min 1.0 (/ (count (str pitch)) 400.0))
-        title-words (set (map str/lower-case (str/split (str vertical-title) #"\s+")))
-        pitch-words (set (map str/lower-case (str/split (str pitch) #"\s+")))
+        title-words (set (map str/lower (str/split (str vertical-title) #"\s+")))
+        pitch-words (set (map str/lower (str/split (str pitch) #"\s+")))
         overlap (count (set/intersection title-words pitch-words))
         overlap-score (min 1.0 (/ overlap 3.0))]
     (double (max 0.05 (min 1.0 (+ (* 0.7 len-score) (* 0.3 overlap-score)))))))

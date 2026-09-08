@@ -15,7 +15,7 @@
   RECORD an operator would keep, not the act of granting a territory or
   minting an identity itself (both are always human-gated -- see README
   'Human approval')."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- unsigned-certificate
   "Every certificate this actor produces is UNSIGNED and explicitly
@@ -124,8 +124,8 @@
   fail to collide with a semantically-identical future request."
   [itonami-vertical {:keys [country region]}]
   [itonami-vertical
-   (some-> country str/upper-case)
-   (some-> region str/trim str/lower-case not-empty)])
+   (some-> country str/upper)
+   (some-> region str/trim str/lower not-empty)])
 
 (defn append
   "Append a record, returning a NEW list (never mutate history in place)."
