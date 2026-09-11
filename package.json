@@ -1,7 +1,7 @@
 {
   "name": "cloud-itonami-partners",
   "private": true,
-  "comment": "shadow-cljs compiles src/partners/edge/intake.cljs -> functions/api/intake.js (a Cloudflare Pages Function), mirroring gftdcojp/cloud-itonami's shadow-cljs.edn :register-api convention.",
+  "comment": "shadow-cljs compiles src/partners/edge/intake.cljk -> functions/api/intake.js (a Cloudflare Pages Function), mirroring gftdcojp/cloud-itonami's shadow-cljs.edn :register-api convention.",
   "scripts": {
     "build:intake": "shadow-cljs release intake-api",
     "deploy": "wrangler pages deploy public --project-name=cloud-itonami-partners"

@@ -2,11 +2,11 @@
 ;; nbb static-site generator: reads `partners.catalog` (pure .cljc data --
 ;; no JVM/browser-specific code) and writes `public/index.html`, the public
 ;; partner-application form (ADR-2607194000). Same nbb-generates-a-static-
-;; page pattern `kotoba-lang/kototama`'s `web/generate.cljs` and
-;; `cloud-itonami-isic-6310`'s own `web/generate.cljs` use, run as:
+;; page pattern `kotoba-lang/kototama`'s `web/generate.cljk` and
+;; `cloud-itonami-isic-6310`'s own `web/generate.cljk` use, run as:
 ;;
 ;;   nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" \
-;;       web/generate.cljs
+;;       web/generate.cljk
 ;;
 ;; UI は デジタル庁デザインシステム(DADS)を kotoba-lang/jp-go-digital-design-system
 ;; 経由で使う(superproject ADR-2607261600)。以前このファイルは「kotoba-ui を
@@ -218,11 +218,11 @@
   (or (some-> js/process.env.KOTOBA_HTML_ROOT not-empty) (str dds-root "/../html")))
 
 (def browser-assets
-  [[(str css-root  "/src/css/core.cljc")              "public/css_core.cljs"]
-   [(str html-root "/src/html/core.cljc")             "public/html_core.cljs"]
-   [(str dds-root  "/src/jp_go_dds/core.cljc")        "public/jp_go_dds_core.cljs"]
+  [[(str css-root  "/src/css/core.cljc")              "public/css_core.cljk"]
+   [(str html-root "/src/html/core.cljc")             "public/html_core.cljk"]
+   [(str dds-root  "/src/jp_go_dds/core.cljc")        "public/jp_go_dds_core.cljk"]
    ["web/vendor/scittle.js"                           "public/scittle.js"]
-   ["web/apply.cljs"                                  "public/apply.cljs"]])
+   ["web/apply.cljk"                                  "public/apply.cljk"]])
 
 (doseq [[src dst] browser-assets]
   (fs/copyFileSync src dst))

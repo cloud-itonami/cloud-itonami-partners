@@ -10,7 +10,7 @@
 # itonami's functions/edge/*.js uses -- Cloudflare Pages does not run a
 # build step for Functions, it deploys whatever's on disk at deploy time).
 # Rebuild it with `npm run build:intake` after editing
-# src/partners/edge/intake.cljs.
+# src/partners/edge/intake.cljk.
 
 # actor's OWN CACAO identity (Ed25519 seed) -- kotoba-server convention
 # .cloud-itonami-partners/identity.edn, NEVER commit a private key

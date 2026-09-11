@@ -59,7 +59,7 @@
 
   TWO structural (non-runtime) invariants that this governor upholds BY
   CONSTRUCTION rather than as a data check, verified by
-  `test/partners/governor_contract_test.cljc`:
+  `test/partners/governor_contract_test.cljk`:
 
     5. Fairness / non-discrimination -- this file contains NO rule that
                                  reads `:applicant-name`, nationality,

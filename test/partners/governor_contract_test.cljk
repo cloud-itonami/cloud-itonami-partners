@@ -96,7 +96,7 @@
        ;; prose docstring, which discusses these words in English without
        ;; ever using them as a keyword. JVM-only (`slurp`, absent from
        ;; cljs.core) -- the data-driven check above still runs portably.
-       (let [src (slurp "src/partners/governor.cljc")]
+       (let [src (slurp "src/partners/governor.cljk")]
          (doseq [forbidden [":nationality" ":race" ":ethnicity" ":religion" ":gender"]]
            (is (not (re-find (re-pattern forbidden) src))
                (str forbidden " must never appear in governor.cljc")))))))

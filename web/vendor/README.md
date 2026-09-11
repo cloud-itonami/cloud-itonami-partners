@@ -1,7 +1,7 @@
 # web/vendor — self-hosted 第三者アセット
 
 このディレクトリのファイルは**手編集禁止**（上流からそのまま取得したもの）。
-`web/generate.cljs` が `public/` へコピーする。
+`web/generate.cljk` が `public/` へコピーする。
 
 ## scittle.js
 
