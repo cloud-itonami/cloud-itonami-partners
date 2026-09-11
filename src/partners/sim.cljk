@@ -1,5 +1,5 @@
 (ns partners.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks ONE clean application through
+  "Demo driver -- `kbb -M:dev:run`. Walks ONE clean application through
   intake -> screen -> govern -> human approval -> onboard (CACAO mint +
   territory grant), then shows a governor HARD-hold (an unlisted itonami-
   vertical-ref) that never reaches a human at all, then a territory-
