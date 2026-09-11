@@ -80,7 +80,7 @@ commitment or collect money.
 | `src/partners/governor.cljk` | **PartnerGovernor** -- 4 HARD runtime checks (territory exclusivity, required fields, known vertical, screening-proposal well-formedness) + 2 structural invariants (fairness/non-discrimination, minimal disclosure) verified by `governor_contract_test.cljc` |
 | `src/partners/operation.cljk` | **OperationActor** -- the langgraph-clj StateGraph: `intake → screen → govern → decide → [reject \| request-approval → {onboard \| reject \| waitlist}]` |
 | `src/partners/cacao.cljk` | JVM-only CACAO/did:key self-mint identity -- the actor's OWN identity (`.cloud-itonami-partners/identity.edn`) AND one independent identity PER approved partner (`.partner-<application-id>/identity.edn`) |
-| `src/partners/sim.cljk` | Demo driver (`clojure -M:dev:run`) -- also the literal template for the owner's real review procedure, see "Human approval" |
+| `src/partners/sim.cljk` | Demo driver (`kbb -M:dev:run`) -- also the literal template for the owner's real review procedure, see "Human approval" |
 | `src/partners/edge/intake.cljk` | Cloudflare Pages Function source (`POST /api/intake`) -- compiled to `functions/api/intake.js` via shadow-cljs |
 | `web/generate.cljk` | nbb static-site generator -- reads `partners.catalog` and writes `public/index.html` (the public form), built from the デジタル庁デザインシステム (DADS) via `kotoba-lang/jp-go-digital-design-system` -- see "UI" below |
 
@@ -155,16 +155,16 @@ statement, not a bare scaffold:
 This is a **subset**, not the full fleet (ADR-2607194000 Non-goals
 explicitly scope v1 this way). Extending it is additive: verify the next
 repo's README, add one map entry to `partners.catalog/verticals`, run
-`npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljk` to regenerate the form.
+`kbb --backend sci --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljk` to regenerate the form.
 
 ## Run tests
 
 ```bash
-clojure -M:lint     # clj-kondo, errors fail
-clojure -M:dev:test  # 30 tests / 195 assertions -- governor contract,
+kbb -M:lint     # clj-kondo, errors fail
+kbb -M:dev:test  # 30 tests / 195 assertions -- governor contract,
                      # store parity (MemStore ‖ DatomicStore), StateGraph
                      # end-to-end flows, catalog honesty, CACAO identity
-clojure -M:dev:run   # walk 5 demo applications through the real actor
+kbb -M:dev:run   # walk 5 demo applications through the real actor
                      # (approve / 2 governor-auto-reject / human-reject /
                      # human-waitlist), print the ledger + grant records
 ```
@@ -233,9 +233,9 @@ scopes this actor to its own deployment).
 
 ```bash
 npm install
-npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljk \
+kbb --backend sci --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljk \
   # regenerate public/index.html from partners.catalog
-npx shadow-cljs release intake-api          # regenerate functions/api/intake.js from src/partners/edge/intake.cljk
+amu compile --target wasm32-browser intake-api          # regenerate functions/api/intake.js from src/partners/edge/intake.cljk
 npx wrangler pages deploy public --project-name=cloud-itonami-partners --branch=main
 ```
 
