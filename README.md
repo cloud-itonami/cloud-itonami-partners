@@ -73,16 +73,16 @@ commitment or collect money.
 
 | File | Role |
 |---|---|
-| `src/partners/catalog.cljc` | The verified itonami-vertical catalog (see "Vertical catalog" below) |
-| `src/partners/registry.cljc` | Pure `partner-application`/`screening-result`/`territory-grant` draft-record builders |
-| `src/partners/store.cljc` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`, via `kotoba-lang/langchain-store`'s field-spec entity helpers, ADR-2607141600) + append-only audit ledger + territory-grant history |
-| `src/partners/advisor.cljc` | **ScreeningAdvisor** -- `mock-advisor` (deterministic, offline) ‖ `llm-advisor` (real `langchain.model/ChatModel`). Proposal only -- score + rationale, never a decision |
-| `src/partners/governor.cljc` | **PartnerGovernor** -- 4 HARD runtime checks (territory exclusivity, required fields, known vertical, screening-proposal well-formedness) + 2 structural invariants (fairness/non-discrimination, minimal disclosure) verified by `governor_contract_test.cljc` |
-| `src/partners/operation.cljc` | **OperationActor** -- the langgraph-clj StateGraph: `intake → screen → govern → decide → [reject \| request-approval → {onboard \| reject \| waitlist}]` |
-| `src/partners/cacao.clj` | JVM-only CACAO/did:key self-mint identity -- the actor's OWN identity (`.cloud-itonami-partners/identity.edn`) AND one independent identity PER approved partner (`.partner-<application-id>/identity.edn`) |
-| `src/partners/sim.cljc` | Demo driver (`clojure -M:dev:run`) -- also the literal template for the owner's real review procedure, see "Human approval" |
-| `src/partners/edge/intake.cljs` | Cloudflare Pages Function source (`POST /api/intake`) -- compiled to `functions/api/intake.js` via shadow-cljs |
-| `web/generate.cljs` | nbb static-site generator -- reads `partners.catalog` and writes `public/index.html` (the public form), built from the デジタル庁デザインシステム (DADS) via `kotoba-lang/jp-go-digital-design-system` -- see "UI" below |
+| `src/partners/catalog.cljk` | The verified itonami-vertical catalog (see "Vertical catalog" below) |
+| `src/partners/registry.cljk` | Pure `partner-application`/`screening-result`/`territory-grant` draft-record builders |
+| `src/partners/store.cljk` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`, via `kotoba-lang/langchain-store`'s field-spec entity helpers, ADR-2607141600) + append-only audit ledger + territory-grant history |
+| `src/partners/advisor.cljk` | **ScreeningAdvisor** -- `mock-advisor` (deterministic, offline) ‖ `llm-advisor` (real `langchain.model/ChatModel`). Proposal only -- score + rationale, never a decision |
+| `src/partners/governor.cljk` | **PartnerGovernor** -- 4 HARD runtime checks (territory exclusivity, required fields, known vertical, screening-proposal well-formedness) + 2 structural invariants (fairness/non-discrimination, minimal disclosure) verified by `governor_contract_test.cljc` |
+| `src/partners/operation.cljk` | **OperationActor** -- the langgraph-clj StateGraph: `intake → screen → govern → decide → [reject \| request-approval → {onboard \| reject \| waitlist}]` |
+| `src/partners/cacao.cljk` | JVM-only CACAO/did:key self-mint identity -- the actor's OWN identity (`.cloud-itonami-partners/identity.edn`) AND one independent identity PER approved partner (`.partner-<application-id>/identity.edn`) |
+| `src/partners/sim.cljk` | Demo driver (`clojure -M:dev:run`) -- also the literal template for the owner's real review procedure, see "Human approval" |
+| `src/partners/edge/intake.cljk` | Cloudflare Pages Function source (`POST /api/intake`) -- compiled to `functions/api/intake.js` via shadow-cljs |
+| `web/generate.cljk` | nbb static-site generator -- reads `partners.catalog` and writes `public/index.html` (the public form), built from the デジタル庁デザインシステム (DADS) via `kotoba-lang/jp-go-digital-design-system` -- see "UI" below |
 
 ### UI — デジタル庁デザインシステム (DADS)
 
@@ -103,7 +103,7 @@ hand-written HTML strings and inline `<style>` this file used to emit are gone.
 DADS is **light-mode only** (upstream デジタル庁 ships no dark palette), so the
 previous `prefers-color-scheme` dark support was intentionally dropped.
 
-`web/generate.cljs` reads the vendored `dds.css` by relative path; override it
+`web/generate.cljk` reads the vendored `dds.css` by relative path; override it
 with the `JP_GO_DDS_CSS` environment variable when running from a different
 directory layout (CI, git worktree).
 
@@ -132,7 +132,7 @@ data partnerships, `lei-*` Legal Entity Identifier records,
 data, `unspsc-*`/`cofog-*`/`gtin-*`/`jsic-*`/`hygiene-*`/`regulatory-*`
 classification catalogs) is a data catalog, not a franchisable business,
 and is excluded. Full reasoning + the exclusion list is in
-`src/partners/catalog.cljc`'s own docstring.
+`src/partners/catalog.cljk`'s own docstring.
 
 Within the ~643 isic/isco repos, v1 seeds **10** verified verticals --
 chosen because each repo's own `README.md` (read directly) opens with a
@@ -155,7 +155,7 @@ statement, not a bare scaffold:
 This is a **subset**, not the full fleet (ADR-2607194000 Non-goals
 explicitly scope v1 this way). Extending it is additive: verify the next
 repo's README, add one map entry to `partners.catalog/verticals`, run
-`npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljs` to regenerate the form.
+`npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljk` to regenerate the form.
 
 ## Run tests
 
@@ -233,9 +233,9 @@ scopes this actor to its own deployment).
 
 ```bash
 npm install
-npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljs \
+npx nbb --classpath "src:../../kotoba-lang/html/src:../../kotoba-lang/jp-go-digital-design-system/src" web/generate.cljk \
   # regenerate public/index.html from partners.catalog
-npx shadow-cljs release intake-api          # regenerate functions/api/intake.js from src/partners/edge/intake.cljs
+npx shadow-cljs release intake-api          # regenerate functions/api/intake.js from src/partners/edge/intake.cljk
 npx wrangler pages deploy public --project-name=cloud-itonami-partners --branch=main
 ```
 

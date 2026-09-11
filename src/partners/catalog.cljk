@@ -1,7 +1,7 @@
 (ns partners.catalog
   "The itonami-vertical catalog `partners.governor`'s hard check #3 resolves
   `itonami-vertical-ref` against, and the public application form's dropdown
-  renders from -- see `web/generate.cljs`.
+  renders from -- see `web/generate.cljk`.
 
   HONEST, VERIFIED, NON-FABRICATED, and DELIBERATELY A SUBSET (ADR-2607194000
   Non-goals: 'do not attempt to launch/catalog all 1120 verticals at once').
@@ -108,7 +108,7 @@
 
 (defn options
   "Sorted `[vertical-ref {...}]` pairs -- what the public form's dropdown
-  (`web/generate.cljs`) renders, one `<option>` per entry, labeled with the
+  (`web/generate.cljk`) renders, one `<option>` per entry, labeled with the
   vertical's own verified `:title`/`:description`, never invented text."
   []
   (sort-by first verticals))
