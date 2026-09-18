@@ -188,7 +188,7 @@
 ;; (色・アイコンは dds.css の data-type="success"/"error" が持つ)。
 (def scripts
   [[:script {:src "scittle.js"}]
-   [:script {:type "application/x-scittle" :src "css_core.cljs"}]
+   [:script {:type "application/x-scittle" :src "css_core.cljk"}]
    [:script {:type "application/x-scittle" :src "html_core.cljs"}]
    [:script {:type "application/x-scittle" :src "jp_go_dds_core.cljs"}]
    [:script {:type "application/x-scittle" :src "apply.cljs"}]])
@@ -218,7 +218,7 @@
   (or (some-> js/process.env.KOTOBA_HTML_ROOT not-empty) (str dds-root "/../html")))
 
 (def browser-assets
-  [[(str css-root  "/src/css/core.cljc")              "public/css_core.cljk"]
+  [[(str css-root  "/src/css/core.cljk")              "public/css_core.cljk"]
    [(str html-root "/src/html/core.cljc")             "public/html_core.cljk"]
    [(str dds-root  "/src/jp_go_dds/core.cljc")        "public/jp_go_dds_core.cljk"]
    ["web/vendor/scittle.js"                           "public/scittle.js"]
