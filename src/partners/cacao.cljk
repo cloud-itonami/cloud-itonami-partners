@@ -34,7 +34,7 @@
   edge/browser code'). `partners.operation` requires this ns ONLY behind a
   `#?(:clj ...)` reader-conditional (see that ns) so the CLJS build (the
   public intake Pages Function) never tries to compile java.security.*."
-  (:require [clojure.edn :as edn]
+  (:require [kotoba.lang.edn :as edn]
             [clojure.java.io :as io]
             [kotoba.lang.text :as str]
             [ed25519.core :as ed]
