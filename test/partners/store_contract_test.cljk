@@ -4,7 +4,7 @@
   makes 'swap the SSoT for Datomic / kotoba-server' a configuration
   change, not a rewrite (same pattern `underwriting.store-contract-test`
   uses for the sibling actor)."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [partners.store :as store]))
 
 (defn- backends []

@@ -10,7 +10,7 @@
   `cloud-itonami-partners`) is exercised too and ALSO cleaned up afterward."
   (:require [clojure.java.io :as io]
             [kotoba.lang.text :as str]
-            [clojure.test :refer [deftest is testing]]
+            [kotoba.test :refer [deftest is testing]]
             [ed25519.core :as ed]
             [ipns.core :as ipns]
             [partners.cacao :as cacao]))
