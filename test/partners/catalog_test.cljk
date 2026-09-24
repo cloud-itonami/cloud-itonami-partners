@@ -1,5 +1,5 @@
 (ns partners.catalog-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [partners.catalog :as catalog]))
 
 (deftest catalog-is-honest-and-non-empty

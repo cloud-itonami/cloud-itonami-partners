@@ -1,5 +1,5 @@
 (ns partners.registry-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [partners.registry :as registry]))
 
 (deftest register-application-validates-and-builds

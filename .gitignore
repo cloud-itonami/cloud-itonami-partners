@@ -30,3 +30,4 @@ identity.json
 # endpoint's KV for offline review (see README 'Human approval') -- may
 # contain applicant PII (name/email), never commit
 /pending-applications.edn
+.nbb/

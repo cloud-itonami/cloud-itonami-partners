@@ -3,7 +3,7 @@
   structural invariants (fairness/non-discrimination and minimal-
   disclosure) `partners.governor`'s own docstring commits to (points 5/6) --
   verified here as data/contract assertions, not by inspection alone."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [partners.governor :as governor]
             [partners.store :as store]))
 

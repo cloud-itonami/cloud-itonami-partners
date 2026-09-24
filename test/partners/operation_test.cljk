@@ -5,7 +5,7 @@
   オーナー最終承認を必須とする... interrupt-before' -- no phase or
   confidence threshold ever bypasses it) are both proven end-to-end here,
   not just unit-tested per node."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [langgraph.graph :as g]
             [partners.operation :as op]
             [partners.store :as store]))
