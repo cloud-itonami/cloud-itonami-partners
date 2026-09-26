@@ -189,9 +189,9 @@
 (def scripts
   [[:script {:src "scittle.js"}]
    [:script {:type "application/x-scittle" :src "css_core.cljk"}]
-   [:script {:type "application/x-scittle" :src "html_core.cljs"}]
-   [:script {:type "application/x-scittle" :src "jp_go_dds_core.cljs"}]
-   [:script {:type "application/x-scittle" :src "apply.cljs"}]])
+   [:script {:type "application/x-scittle" :src "html_core.cljk"}]
+   [:script {:type "application/x-scittle" :src "jp_go_dds_core.cljk"}]
+   [:script {:type "application/x-scittle" :src "apply.cljk"}]])
 
 (def html
   (page/->page
