@@ -1,6 +1,6 @@
 (ns partners.cacao
   "CACAO/did:key identity for the cloud-itonami-partners actor -- minted and
-  held in the actor's OWN runtime (CLAUDE.md Actors: 'actor が自分の鍵で
+  held in the actor's OWN runtime (AGENTS.md Actors: 'actor が自分の鍵で
   CACAO を自己発行'), never a shared operator secret. Adapted from
   `cloud-itonami/src/cloud_itonami/identity.clj` (the flagship actor's own
   JVM self-mint identity pattern) with TWO identity kinds instead of one:
@@ -76,7 +76,7 @@
   empty/partial read -- see `cloud-itonami.identity/read-identity-with-
   retry`'s docstring for why a bare single slurp+parse is unsafe even after
   an atomic CREATE_NEW write (concurrent-agent operation is routine in this
-  workspace, per CLAUDE.md)."
+  workspace, per AGENTS.md)."
   [path]
   (loop [attempts 0]
     (let [parsed (try

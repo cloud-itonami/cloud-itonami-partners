@@ -19,7 +19,7 @@
   Like `vcfund.ddllm`/`talent.hrllm`, `mock-advisor` is a deterministic mock
   so the actor graph runs offline and the governor contract is exercised
   end-to-end. In production `llm-advisor` calls a real LLM (kotoba-llm or
-  equivalent, resolved via the `murakumo-main` alias per CLAUDE.md -- never
+  equivalent, resolved via the `murakumo-main` alias per AGENTS.md -- never
   a hardcoded concrete model id) with the same proposal shape.
 
   Proposal shape:
@@ -124,7 +124,7 @@
 
 (defn llm-advisor
   "An advisor backed by a `langchain.model/ChatModel` (real inference).
-  `chat-model` should resolve via CLAUDE.md's `murakumo-main` alias
+  `chat-model` should resolve via AGENTS.md's `murakumo-main` alias
   convention (env/arg override -> alias resolution -> endpoint-only
   fallback), never a hardcoded concrete model id -- see README 'Advisor'."
   ([chat-model] (llm-advisor chat-model {}))

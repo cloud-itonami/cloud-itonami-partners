@@ -29,7 +29,7 @@
        io.github.com-junkawasaki/langgraph-clj
         {:local/root "../../kotoba-lang/langgraph"}
         ;; shared langchain.db store seam (EDN-blob codec + identity schema
-        ;; + field-spec entity helpers), ADR-2607141600 -- CLAUDE.md
+        ;; + field-spec entity helpers), ADR-2607141600 -- AGENTS.md
         ;; mandates this over hand-rolled enc/dec.
         io.github.kotoba-lang/langchain-store
         {:local/root "../../kotoba-lang/langchain-store"}

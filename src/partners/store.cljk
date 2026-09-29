@@ -17,7 +17,7 @@
   actor, PartnerGovernor and the audit ledger never know which SSoT they
   run on.
 
-  Per CLAUDE.md ('Store は :db-api 駆動... 自前でハンドロールしない,
+  Per AGENTS.md ('Store は :db-api 駆動... 自前でハンドロールしない,
   ADR-2607141600'), the EDN-blob codec, `:db.unique/identity` schema and
   entity field/pull shaping are `kotoba-lang/langchain-store`
   (`langchain-store.core`), NOT hand-rolled `enc`/`dec*` functions.
