@@ -1,6 +1,6 @@
 (ns partners.operation-test
   "End-to-end StateGraph tests -- the single invariant (ADR-2607194000 /
-  CLAUDE.md Actors: 'governor が拒否する territory-grant を actor は決して
+  AGENTS.md Actors: 'governor が拒否する territory-grant を actor は決して
   行わない') AND the permanent human-gate invariant ('territory 付与は
   オーナー最終承認を必須とする... interrupt-before' -- no phase or
   confidence threshold ever bypasses it) are both proven end-to-end here,

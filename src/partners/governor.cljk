@@ -10,7 +10,7 @@
   every-violation-collected, human-readable `:rule`/`:detail` pairs) follows
   `cloud-itonami.edge.jobs-governor`'s docstring convention.
 
-  Single invariant (CLAUDE.md Actors / ADR-2607194000): the governor never
+  Single invariant (AGENTS.md Actors / ADR-2607194000): the governor never
   lets the actor perform a write/disclosure/territory-grant it has
   rejected. `:territory/grant-recorded` (minting a CACAO identity for the
   partner + granting the territory) is high-stakes REGARDLESS of how clean

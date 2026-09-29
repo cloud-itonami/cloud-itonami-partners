@@ -1,6 +1,6 @@
 (ns partners.cacao-test
   "partners.cacao is the JVM-only identity boundary (SecureRandom seed
-  generation, .{slug}/identity.edn persistence -- CLAUDE.md's kotoba-server
+  generation, .{slug}/identity.edn persistence -- AGENTS.md's kotoba-server
   convention, gitignored, never committed). Every test here uses a
   disposable, never-before-seen application-id (never a real partner) and
   deletes its `.partner-<slug>/` directory afterward -- no real secret is
